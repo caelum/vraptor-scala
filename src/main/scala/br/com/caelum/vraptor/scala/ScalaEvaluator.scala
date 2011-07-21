@@ -16,7 +16,8 @@
 package br.com.caelum.vraptor.scala
 
 import br.com.caelum.vraptor.http.route.Evaluator
-import net.vidageek.mirror.dsl.Mirror
+import net.vidageek.mirror.dsl._
+import net.vidageek.mirror.exception._
 import br.com.caelum.vraptor.ioc.{ApplicationScoped, Component}
 
 /**
@@ -27,8 +28,15 @@ import br.com.caelum.vraptor.ioc.{ApplicationScoped, Component}
 @ApplicationScoped
 class ScalaEvaluator extends Evaluator {
    override def get(obj:AnyRef, path:String) = {
-      path.split("\\.").drop(1).foldLeft(obj)((o,p) =>
-        new Mirror().on(o).invoke.method(p).withoutArgs
+      path.split("\\.").drop(1).foldLeft(obj)((o,p) =>{
+		    val typ = new Mirror().on(o).invoke
+        try {
+		      typ.method(p).withoutArgs
+        }catch {
+          case ex:MirrorException => typ.method("get" + upperFirst(p)).withoutArgs
+        }
+      }
       )
    }
+	def upperFirst(item:String) = item.substring(0, 1).toUpperCase() + item.substring(1)
 }

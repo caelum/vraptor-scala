@@ -43,10 +43,17 @@ class ScalaTypeFinder(provider:ParameterNameProvider) extends TypeFinder {
     val entries =
     for (path <- parameterPaths; i <- names.indices; if (names(i).isRootOf(path))) yield {
         path -> path.split("\\.").drop(1).foldLeft(types(i).raw)(
-        new Mirror().on(_).reflect.method(_).withoutArgs.getReturnType.raw
+        	(t:Class[_],m:String) => {
+				    val typ = new Mirror().on(t).reflect
+          		Option(typ.method(m).withoutArgs)
+				  	  .getOrElse(typ.method("get" + upperFirst(m)).withoutArgs)
+					    .getReturnType.raw
+          }
         )
       }
     Map(entries:_*)
   }
+
+	def upperFirst(item:String) = item.substring(0, 1).toUpperCase() + item.substring(1)
 
 }
