@@ -6,7 +6,7 @@
 
 	<description>VRaptor 3 core module build</description>
 
-	<property name="vraptor.core" value="../vraptor-core" />
+	<property name="vraptor.core" value="../vraptor/vraptor-core" />
 	<property name="vraptor.jar" value="${vraptor.core}/target/" />
 	<property name="core.lib.dir" value="${vraptor.core}/lib/mandatory" />
 	<property name="scala.lib.dir" value="${vraptor.core}/lib/scala" />
@@ -22,7 +22,7 @@
 	</path>
 
 	<path id="libs.classpath" path=".">
-		<fileset dir="../common">
+		<fileset dir="../vraptor/common">
 			<include name="*.jar" />
 		</fileset>
 		<fileset dir="${vraptor.jar}">
