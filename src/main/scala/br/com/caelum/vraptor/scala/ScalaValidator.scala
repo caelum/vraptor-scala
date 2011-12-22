@@ -6,6 +6,7 @@ import br.com.caelum.vraptor.core.Localization
 import br.com.caelum.vraptor.proxy.Proxifier
 import br.com.caelum.vraptor.validator._
 import br.com.caelum.vraptor.view.ValidationViewsFactory
+import java.util.List
 
 @Component
 class ScalaValidator(result:Result, factory:ValidationViewsFactory, outjector:Outjector, proxifier:Proxifier,

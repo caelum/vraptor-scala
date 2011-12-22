@@ -1,4 +1,4 @@
-package br.com.caelum.gnarus.infra.vraptor
+package br.com.caelum.vraptor.scala
 
 import br.com.caelum.vraptor.http.ParameterNameProvider
 import org.scalatest.FlatSpec
